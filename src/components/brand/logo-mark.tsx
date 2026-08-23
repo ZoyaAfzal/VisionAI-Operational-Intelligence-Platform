@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -24,6 +25,8 @@ export function LogoMark({
   size?: number;
   className?: string;
 }) {
+  const gradientId = useId();
+
   return (
     <motion.svg
       width={size}
@@ -36,12 +39,12 @@ export function LogoMark({
       aria-hidden="true"
     >
       <defs>
-        <linearGradient id="visionai-logo-gradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+        <linearGradient id={gradientId} x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#38bdf8" />
           <stop offset="100%" stopColor="#1d4ed8" />
         </linearGradient>
       </defs>
-      <rect width="32" height="32" rx="8" fill="url(#visionai-logo-gradient)" />
+      <rect width="32" height="32" rx="8" fill={`url(#${gradientId})`} />
       {CORNERS.map((c, i) => (
         <motion.path
           key={i}

@@ -1,0 +1,15 @@
+import { chromium } from "playwright";
+import path from "node:path";
+const outDir = process.argv[2];
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 1600, height: 500 } });
+const logs = [];
+page.on("console", (msg) => { if (msg.type() === "error") logs.push(msg.text()); });
+page.on("pageerror", (err) => logs.push(String(err)));
+await page.goto("http://localhost:3000/", { waitUntil: "networkidle" });
+await page.waitForTimeout(1500);
+const heading = await page.locator("header h1").textContent().catch((e) => "ERROR: " + e.message);
+console.log("heading text:", JSON.stringify(heading));
+await page.screenshot({ path: path.join(outDir, "heading-check.png") });
+console.log("CONSOLE_ERRORS:", JSON.stringify(logs));
+await browser.close();

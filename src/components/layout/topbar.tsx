@@ -1,10 +1,10 @@
-import { Search } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
 import { ThemeToggle } from "./theme-toggle";
 import { LocationSwitcher } from "./location-switcher";
 import { NotificationsMenu } from "./notifications-menu";
 import { UserMenu } from "./user-menu";
 import { MobileNav } from "./mobile-nav";
+import { GlobalSearch } from "./global-search";
 import { locations, alerts, getLocation } from "@/data/mockData";
 
 export function Topbar() {
@@ -21,12 +21,7 @@ export function Topbar() {
       </h1>
 
       <div className="ml-auto flex shrink-0 items-center gap-0.5 sm:gap-1.5 [&>*]:shrink-0">
-        <button
-          className="hidden items-center gap-2 rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-foreground sm:flex"
-          aria-label="Search"
-        >
-          <Search className="h-4 w-4" />
-        </button>
+        <GlobalSearch />
         <ThemeToggle />
         <NotificationsMenu alerts={alerts} locationsById={locationsById} />
         <LocationSwitcher locations={locations} />
